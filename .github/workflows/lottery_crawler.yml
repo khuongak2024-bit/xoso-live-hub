@@ -1,0 +1,28 @@
+name: Lottery Live Scraper
+
+on:
+  schedule:
+    # Chạy tự động vào 16:15 VN (09:15 UTC) và 18:15 VN (11:15 UTC) hàng ngày
+    - cron: '15 9,11 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r crawler/requirements.txt
+
+      - name: Run Scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python crawler/lottery_scraper.py
