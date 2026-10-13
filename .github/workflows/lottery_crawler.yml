@@ -3,8 +3,8 @@ name: Lottery Live Scraper
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 9 * * *'   # 16:15 giờ Việt Nam (UTC+7)
-    - cron: '15 11 * * *'  # 18:15 giờ Việt Nam (UTC+7)
+    - cron: '15 9 * * *'   # 16:15 giờ Việt Nam
+    - cron: '15 11 * * *'  # 18:15 giờ Việt Nam
 
 jobs:
   run-scraper:
